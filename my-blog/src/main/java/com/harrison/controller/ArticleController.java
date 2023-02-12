@@ -2,6 +2,7 @@ package com.harrison.controller;
 
 
 import com.harrison.domain.entity.Article;
+import com.harrison.domain.result.ResponseResult;
 import com.harrison.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,9 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/list")
-    public List<Article> list() {
-        return articleService.list();
+    @GetMapping("/hotArticleList")
+    public ResponseResult<List<Article>> hotArticleList() {
+        return articleService.hotArticleList();
     }
 
 }
