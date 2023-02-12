@@ -1,0 +1,7 @@
+#ignore  folder
+target/
+.idea
+uploadLog/
+
+#ignore file
+*.iml
