@@ -34,10 +34,10 @@
             <scope>test</scope>
         </dependency>
         <!--SpringSecurity启动器-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,7 +46,7 @@
         <!--fastjson依赖-->
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
+            <artifactId>fastjson2-extension-spring5</artifactId>
         </dependency>
         <!--jwt依赖-->
         <dependency>

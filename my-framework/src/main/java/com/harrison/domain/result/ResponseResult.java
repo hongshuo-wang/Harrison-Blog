@@ -5,13 +5,12 @@ import com.harrison.enums.AppHttpCodeEnum;
 
 import java.io.Serializable;
 
+
 /**
  * @author: Harrison
  * @date: 2023/2/12 23:15
  * @Description: 返回给前端的对象
  */
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String msg;
