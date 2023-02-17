@@ -1,18 +1,18 @@
 package com.harrison.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.harrison.domain.entity.Article;
 import org.apache.ibatis.annotations.Mapper;
+import com.harrison.domain.entity.User;
 
 /**
- * 文章表(Article)表数据库访问层
+ * 用户表(User)表数据库访问层
  *
  * @author Harrison
- * @date 2023-02-12 21:05:37
+ * @date 2023-02-17 01:57:40
  * @Description:
  */
 @Mapper
-public interface ArticleMapper extends BaseMapper<Article> {
+public interface UserMapper extends BaseMapper<User> {
 
 }
 
