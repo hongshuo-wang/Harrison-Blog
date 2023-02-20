@@ -26,3 +26,6 @@ oss:
   secretKey: "z_KLiGyZKsG7wvsLdHmGRwfTtzyFCppd2bR0fdI_"
   bucket: "whs-blog"
   realmName: "http://rq9veg4kx.bkt.clouddn.com/"
+
+logging:
+  config: classpath:logback-spring.xml

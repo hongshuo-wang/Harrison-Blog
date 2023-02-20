@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.harrison.constants.SystemConstants;
+import com.harrison.domain.entity.User;
 import com.harrison.domain.result.ResponseResult;
 import com.harrison.domain.vo.CommentVo;
 import com.harrison.domain.vo.PageVo;
@@ -81,8 +82,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         commentVos.stream()
                 .peek(vo -> {
                     // 通过create by查询nickName
-                    String nickName = userService.getById(vo.getCreateBy()).getNickName();
+                    User user = userService.getById(vo.getCreateBy());
+                    String nickName = user.getNickName();
+                    String avatar = user.getAvatar();
                     vo.setUsername(nickName);
+                    vo.setAvatar(avatar);
                 })
                 /*
                  根据toCommentUserId查询根据toCommentUserIdName
@@ -100,6 +104,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         if(!StringUtils.hasText(comment.getContent())) {
             throw new SystemException(AppHttpCodeEnum.CONTENT_NOT_NULL);
         }
+
         save(comment);
         return ResponseResult.okResult();
     }

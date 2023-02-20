@@ -24,7 +24,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             userId = -1L;
         }
         this.setFieldValByName("createTime", new Date(), metaObject);
-        this.setFieldValByName("createBy",userId , metaObject);
+        this.setFieldValByName("createBy", userId , metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("updateBy", userId, metaObject);
     }
@@ -34,4 +34,5 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("updateBy", SecurityUtils.getUserId(), metaObject);
     }
+
 }

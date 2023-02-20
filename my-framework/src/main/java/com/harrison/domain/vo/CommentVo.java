@@ -26,6 +26,10 @@ public class CommentVo {
      * 子评论列表
      */
     List<CommentVo> children;
+    /**
+     * 头像所在url
+     */
+    private String avatar;
     private Long id;
     /**
      * 评论类型（0代表文章评论，1代表友链评论）

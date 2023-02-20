@@ -2,11 +2,17 @@ package com.harrison.domain.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.harrison.validate.ValidGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 /**
  * 用户表(SysUser)表实体类
@@ -25,14 +31,17 @@ public class User {
     /**
      * 用户名
      */
+    @NotBlank(message = "用户名不能为空", groups = ValidGroup.Crud.Create.class)
     private String userName;
     /**
      * 昵称
      */
+    @NotBlank(message = "昵称为必填项", groups = ValidGroup.Crud.Create.class)
     private String nickName;
     /**
      * 密码
      */
+    @NotBlank(message = "密码不能为空", groups = ValidGroup.Crud.Create.class)
     private String password;
     /**
      * 用户类型：0代表普通用户，1代表管理员
@@ -45,6 +54,7 @@ public class User {
     /**
      * 邮箱
      */
+    @Email(message = "请填写正确的邮箱地址", groups = ValidGroup.Crud.Create.class)
     private String email;
     /**
      * 手机号
@@ -61,18 +71,22 @@ public class User {
     /**
      * 创建人的用户id
      */
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
     /**
      * 创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
     /**
      * 更新人
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
     /**
      * 更新时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
     /**
      * 删除标志（0代表未删除，1代表已删除）
