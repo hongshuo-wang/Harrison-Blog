@@ -10,6 +10,7 @@ import com.harrison.service.BlogLoginService;
 import com.harrison.utils.BeanCopyUtils;
 import com.harrison.utils.JwtUtil;
 import com.harrison.utils.RedisCache;
+import com.harrison.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -59,13 +60,10 @@ public class BlogAdminLoginServiceImpl implements BlogAdminLoginService {
 
     @Override
     public ResponseResult logout() {
-        //获取token 解析获取userid
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        //获取userid
-        Long userId = loginUser.getUser().getId();
-        //删除redis中的用户信息
-        redisCache.deleteObject("adminLogin:"+userId);
+        // 获取当前用户id
+        Long userId = SecurityUtils.getUserId();
+        // 删除redis中对应的值
+        redisCache.deleteObject("adminLogin" + userId);
         return ResponseResult.okResult();
     }
 

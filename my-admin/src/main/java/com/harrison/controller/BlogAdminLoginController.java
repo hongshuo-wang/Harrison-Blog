@@ -16,6 +16,7 @@ import com.harrison.service.BlogAdminLoginService;
 import com.harrison.service.MenuService;
 import com.harrison.service.RoleService;
 import com.harrison.utils.BeanCopyUtils;
+import com.harrison.utils.RedisCache;
 import com.harrison.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -42,6 +43,8 @@ public class BlogAdminLoginController {
     private MenuService menuService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private RedisCache redisCache;
 
     @PostMapping("/user/login")
     @SystemLog(businessName = "用户登录")
@@ -52,13 +55,9 @@ public class BlogAdminLoginController {
         }
         return adminLoginService.login(user);
     }
-    @PostMapping("/logout")
-    @SystemLog(businessName = "用户退出登录")
-    public ResponseResult logout() {
-        return adminLoginService.logout();
-    }
 
     @GetMapping("/getInfo")
+    @SystemLog(businessName = "获取用户权限、角色")
     public ResponseResult<AdminUserInfoVo> getUserInfo() {
         // 获取当前用户的id
         Long userId = SecurityUtils.getUserId();
@@ -75,11 +74,18 @@ public class BlogAdminLoginController {
     }
 
     @GetMapping("/getRouters")
+    @SystemLog(businessName = "获取动态路由")
     public ResponseResult<RouterVo> getRouters() {
         Long userId = SecurityUtils.getUserId();
         // 查询menu字段 结果是tree形式
         List<Menu> menus = menuService.selectRouterMenuTreeByUserId(userId);
         return ResponseResult.okResult(new RouterVo(menus));
+    }
+
+    @PostMapping("/user/logout")
+    @SystemLog(businessName = "用户退出登录")
+    public ResponseResult logout() {
+        return adminLoginService.logout();
     }
 }
 
