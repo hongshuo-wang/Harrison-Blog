@@ -50,19 +50,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
-                .antMatchers("/login").anonymous()
-                // 注销接口需要认证才能访问
-                .antMatchers("/logout").authenticated()
-                // 查询个人信息接口需要认证才能访问
-                .antMatchers("/user/userInfo").authenticated()
-                // 发送文章评论接口需要认证才能访问
-                .antMatchers("/comment").authenticated()
-                // 上传文件接口需要认证才能访问
-//                .antMatchers("/upload").authenticated()
-                //jwt过滤器测试用，如果测试没有问题吧这里删除了
-//                .antMatchers("/link/getAllLink").authenticated()
-                // 除上面外的所有请求全部不需要认证即可访问
-                .anyRequest().permitAll();
+                .antMatchers("/user/login").anonymous()
+                // 除上面外的所有请求全部需要认证才能访问
+                .anyRequest().authenticated();
 
         // 配置异常处理器
         http.exceptionHandling()

@@ -1,6 +1,7 @@
 package com.harrison.controller;
 
 
+import com.harrison.annotation.SystemLog;
 import com.harrison.domain.entity.Article;
 import com.harrison.domain.query.CategoryQuery;
 import com.harrison.domain.query.PageQuery;
@@ -43,13 +44,19 @@ public class ArticleController {
      * @return
      */
     @GetMapping("/articleList")
+    @SystemLog(businessName = "查询文章列表")
     public ResponseResult<PageVo<ArticleListVo>> getArticleList(CategoryQuery query) {
         return articleService.getArticleList(query.getPageNum(), query.getPageSize(), query.getCategoryId());
     }
 
     @GetMapping("/{id}")
+    @SystemLog(businessName = "查询文章详情")
     public ResponseResult<ArticleDetailVo> getArticleDetail(@PathVariable("id") Long id) {
         return articleService.getArticleDetail(id);
+    }
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updateViewCount(@PathVariable("id") Long id) {
+        return articleService.updateViewCount(id);
     }
 }
 

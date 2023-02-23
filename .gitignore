@@ -5,3 +5,6 @@ uploadLog/
 
 #ignore file
 *.iml
+
+logs/
+*.log

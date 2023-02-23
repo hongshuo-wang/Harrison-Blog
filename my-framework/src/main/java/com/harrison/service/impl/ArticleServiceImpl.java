@@ -18,6 +18,7 @@ import com.harrison.mapper.CategoryMapper;
 import com.harrison.service.ArticleService;
 import com.harrison.service.CategoryService;
 import com.harrison.utils.BeanCopyUtils;
+import com.harrison.utils.RedisCache;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public ResponseResult<List<HotArticleVo>> hotArticleList() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
@@ -88,7 +91,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult<ArticleDetailVo> getArticleDetail(Long id) {
         // 根据id查询文章
         Article article = getById(id);
-        // 转换成Vo
+        // 从redis中获取viewCount
+        Integer viewCount = redisCache.getCacheMapValue("article:viewCount", id.toString());
+        article.setViewCount(viewCount.longValue());
+        // 拷贝bean
         ArticleDetailVo articleDetailVo = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
         // 跟据分类id查询分类名
         Category category = categoryMapper.selectById(articleDetailVo.getCategoryId());
@@ -97,6 +103,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         // 返回
         return ResponseResult.okResult(articleDetailVo);
+    }
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        redisCache.incrementCacheMapValue("article:viewCount", id.toString(), 1);
+        return ResponseResult.okResult();
     }
 }
 

@@ -40,5 +40,7 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     ResponseResult<ArticleDetailVo> getArticleDetail(Long id);
+
+    ResponseResult updateViewCount(Long id);
 }
 

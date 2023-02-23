@@ -2,6 +2,7 @@ package com.harrison.controller;
 
 
 
+import com.harrison.annotation.SystemLog;
 import com.harrison.domain.result.ResponseResult;
 import com.harrison.domain.vo.LinkVo;
 import com.harrison.service.LinkService;
@@ -24,6 +25,7 @@ public class LinkController{
     LinkService linkService;
 
     @GetMapping("/getAllLink")
+    @SystemLog(businessName = "获取友链")
     public ResponseResult<List<LinkVo>> getAllLink() {
         return linkService.getAllLink();
     }

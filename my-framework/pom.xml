@@ -68,10 +68,6 @@
             <artifactId>jjwt-jackson</artifactId>
             <scope>runtime</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt</artifactId>-->
-<!--        </dependency>-->
         <!--mybatisPlus依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>

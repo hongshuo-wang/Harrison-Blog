@@ -1,6 +1,7 @@
 package com.harrison.controller;
 
 
+import com.harrison.annotation.SystemLog;
 import com.harrison.domain.entity.User;
 import com.harrison.domain.result.ResponseResult;
 import com.harrison.domain.vo.BlogUserLoginVo;
@@ -24,6 +25,7 @@ public class BlogLoginController {
     @Autowired
     private BlogLoginService loginService;
     @PostMapping("/login")
+    @SystemLog(businessName = "用户登录")
     public ResponseResult<BlogUserLoginVo> login(@RequestBody User user) {
         // 判断用户名是否为空
         if(!StringUtils.hasText(user.getUserName())) {
@@ -32,6 +34,7 @@ public class BlogLoginController {
         return loginService.login(user);
     }
     @PostMapping("/logout")
+    @SystemLog(businessName = "用户退出登录")
     public ResponseResult logout() {
         return loginService.logout();
     }

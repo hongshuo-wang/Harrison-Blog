@@ -2,6 +2,7 @@ package com.harrison.controller;
 
 
 
+import com.harrison.annotation.SystemLog;
 import com.harrison.domain.result.ResponseResult;
 import com.harrison.domain.vo.CategoryVo;
 import com.harrison.service.CategoryService;
@@ -23,6 +24,7 @@ public class CategoryController{
     @Autowired
     private CategoryService categoryService;
     @GetMapping("/getCategoryList")
+    @SystemLog(businessName = "获取分类列表")
     public ResponseResult<List<CategoryVo>> getCategoryList() {
         return categoryService.getCategoryList();
     }

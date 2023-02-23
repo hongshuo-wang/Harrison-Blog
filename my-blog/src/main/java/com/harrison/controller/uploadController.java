@@ -1,5 +1,6 @@
 package com.harrison.controller;
 
+import com.harrison.annotation.SystemLog;
 import com.harrison.domain.result.ResponseResult;
 import com.harrison.service.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class uploadController {
     @Autowired
     private UploadService uploadService;
     @PostMapping("/upload")
+    @SystemLog(businessName = "用户上传文件")
     public ResponseResult uploadFile(MultipartFile img) {
         return uploadService.uploadFile(img);
     }

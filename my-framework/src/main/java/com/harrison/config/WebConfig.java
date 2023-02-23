@@ -1,9 +1,17 @@
 package com.harrison.config;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
 import com.alibaba.fastjson2.support.spring.http.converter.FastJsonHttpMessageConverter;
+import com.alibaba.fastjson2.writer.ObjectWriter;
+import com.alibaba.fastjson2.writer.ObjectWriterProvider;
+import com.alibaba.fastjson2.writer.ObjectWriters;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.cfg.SerializerFactoryConfig;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +20,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * @author: Harrison
@@ -50,6 +60,8 @@ public class WebConfig implements WebMvcConfigurer {
         //1.需要定义一个Convert转换消息的对象
         FastJsonConfig config = new FastJsonConfig();
         config.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        ObjectWriterProvider provider = new ObjectWriterProvider();
+        JSON.config(JSONWriter.Feature.WriteLongAsString);
 //        config.setReaderFeatures(JSONReader.Feature.FieldBased, JSONReader.Feature.SupportArrayToBean);
 //        config.setWriterFeatures(JSONWriter.Feature.WriteMapNullValue, JSONWriter.Feature.PrettyFormat);
         fastConverter.setFastJsonConfig(config);
